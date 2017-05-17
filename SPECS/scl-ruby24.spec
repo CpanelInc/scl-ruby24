@@ -62,7 +62,7 @@
 %global _normalized_cpu %(echo %{_target_cpu} | sed 's/^ppc/powerpc/;s/i.86/i386/;s/sparcv./sparc/')
 
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4590 for more details
-%define release_prefix 1
+%define release_prefix 2
 
 %if 0%{?fedora} >= 19
 %global with_rubypick 1
@@ -321,7 +321,7 @@ For example:
 
 BigDecimal provides similar support for very large or very accurate floating
 point numbers. Decimal arithmetic is also useful for general calculation,
-because it provides the correct answers people expect–whereas normal binary
+because it provides the correct answers people expect - whereas normal binary
 floating point arithmetic often introduces subtle errors because of the
 conversion between base 10 and base 2.
 
@@ -1024,5 +1024,8 @@ make check TESTS="-v $DISABLE_TESTS"
 %{gem_dir}/specifications/xmlrpc-%{xmlrpc_version}.gemspec
 
 %changelog
+* Wed May 17 2017 Rishwanth Yeddula <rish@cpanel.net> 2.4.1-2
+- EA-6289: Remove the UTF8 char in the description for the bigdecimal rubygem
+
 * Mon Apr 3 2017 Rishwanth Yeddula <rish@cpanel.net> 2.4.1-1
 - initial packaging
