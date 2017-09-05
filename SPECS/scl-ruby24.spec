@@ -32,7 +32,7 @@
 %global rubygems_dir %{_datadir}/rubygems
 
 # Bundled libraries versions
-%global rubygems_version 2.6.11
+%global rubygems_version 2.6.13
 %global molinillo_version 0.5.7
 
 # TODO: The IRB has strange versioning. Keep the Ruby's versioning ATM.
@@ -62,7 +62,7 @@
 %global _normalized_cpu %(echo %{_target_cpu} | sed 's/^ppc/powerpc/;s/i.86/i386/;s/sparcv./sparc/')
 
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4590 for more details
-%define release_prefix 2
+%define release_prefix 3
 
 %if 0%{?fedora} >= 19
 %global with_rubypick 1
@@ -136,6 +136,9 @@ Patch7: ruby-2.2.3-Generate-preludes-using-miniruby.patch
 # hardening features of glibc (rhbz#1361037).
 # https://bugs.ruby-lang.org/issues/12666
 Patch8: ruby-2.3.1-Rely-on-ldd-to-detect-glibc.patch
+# https://www.ruby-lang.org/en/news/2017/08/29/multiple-vulnerabilities-in-rubygems/
+Patch9: rubygems-2612-ruby24.patch
+Patch10: rubygems-2613-ruby24.patch
 
 Requires: %{?scl_prefix}%{pkg_name}-libs%{?_isa} = %{version}-%{release}
 Requires: %{?scl_prefix}ruby(rubygems) >= %{rubygems_version}
@@ -506,6 +509,8 @@ rm -rf ext/fiddle/libffi*
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p0
+%patch10 -p0
 
 # Provide an example of usage of the tapset:
 cp -a %{SOURCE3} .
@@ -1024,6 +1029,13 @@ make check TESTS="-v $DISABLE_TESTS"
 %{gem_dir}/specifications/xmlrpc-%{xmlrpc_version}.gemspec
 
 %changelog
+* Fri Sep 1 2017 Rishwanth Yeddula <rish@cpanel.net> 2.4.1-3
+- CPANEL-15622: Update rubygems to 2.6.13 to address:
+  CVE-2017-0902
+  CVE-2017-0899
+  CVE-2017-0900
+  CVE-2017-0901
+
 * Wed May 17 2017 Rishwanth Yeddula <rish@cpanel.net> 2.4.1-2
 - EA-6289: Remove the UTF8 char in the description for the bigdecimal rubygem
 
