@@ -14,7 +14,7 @@
 
 %global major_version 2
 %global minor_version 4
-%global teeny_version 1
+%global teeny_version 2
 %global major_minor_version %{major_version}.%{minor_version}
 
 %global ruby_version %{major_minor_version}.%{teeny_version}
@@ -42,10 +42,10 @@
 %global bigdecimal_version 1.3.0
 %global did_you_mean_version 1.1.0
 %global io_console_version 0.4.6
-%global json_version 2.0.2
+%global json_version 2.0.4
 %global minitest_version 5.10.1
 %global net_telnet_version 0.1.1
-%global openssl_version 2.0.3
+%global openssl_version 2.0.5
 %global power_assert_version 0.4.1
 %global psych_version 2.2.2
 %global rake_version 12.0.0
@@ -62,7 +62,13 @@
 %global _normalized_cpu %(echo %{_target_cpu} | sed 's/^ppc/powerpc/;s/i.86/i386/;s/sparcv./sparc/')
 
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4590 for more details
-%define release_prefix 3
+#
+# NOTE: If there is a ruby version update, you need to make sure that all of the 'rubygems' included in
+# the package were updated in order to reset the release_prefix back to 1.
+#
+# If any of the rubygems were not updated then the release_prefix *MUST* be bumped, as yum will not be
+# able to properly handle the dependencies otherwise.
+%define release_prefix 4
 
 %if 0%{?fedora} >= 19
 %global with_rubypick 1
@@ -136,9 +142,6 @@ Patch7: ruby-2.2.3-Generate-preludes-using-miniruby.patch
 # hardening features of glibc (rhbz#1361037).
 # https://bugs.ruby-lang.org/issues/12666
 Patch8: ruby-2.3.1-Rely-on-ldd-to-detect-glibc.patch
-# https://www.ruby-lang.org/en/news/2017/08/29/multiple-vulnerabilities-in-rubygems/
-Patch9: rubygems-2612-ruby24.patch
-Patch10: rubygems-2613-ruby24.patch
 
 Requires: %{?scl_prefix}%{pkg_name}-libs%{?_isa} = %{version}-%{release}
 Requires: %{?scl_prefix}ruby(rubygems) >= %{rubygems_version}
@@ -509,8 +512,6 @@ rm -rf ext/fiddle/libffi*
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
-%patch9 -p0
-%patch10 -p0
 
 # Provide an example of usage of the tapset:
 cp -a %{SOURCE3} .
@@ -1029,6 +1030,9 @@ make check TESTS="-v $DISABLE_TESTS"
 %{gem_dir}/specifications/xmlrpc-%{xmlrpc_version}.gemspec
 
 %changelog
+* Thu Sep 28 2017 Rishwanth Yeddula <rish@cpanel.net> 2.4.2-4
+- EA-6847: Update ruby to 2.4.2
+
 * Fri Sep 1 2017 Rishwanth Yeddula <rish@cpanel.net> 2.4.1-3
 - CPANEL-15622: Update rubygems to 2.6.13 to address:
   CVE-2017-0902
