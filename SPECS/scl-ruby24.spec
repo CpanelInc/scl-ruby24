@@ -68,7 +68,7 @@
 #
 # If any of the rubygems were not updated then the release_prefix *MUST* be bumped, as yum will not be
 # able to properly handle the dependencies otherwise.
-%define release_prefix 4
+%define release_prefix 5
 
 %if 0%{?fedora} >= 19
 %global with_rubypick 1
@@ -116,32 +116,35 @@ Source100: load.inc
 
 # Fix ruby_version abuse.
 # https://bugs.ruby-lang.org/issues/11002
-Patch0: ruby-2.3.0-ruby_version.patch
+Patch0: 0001-Use-ruby_version_dir_name-for-versioned-directories.patch
+Patch1: 0002-Add-ruby_version_dir_name-support-for-RDoc.patch
+Patch2: 0003-Add-ruby_version_dir_name-support-for-RubyGems.patch
+Patch3: 0004-Let-headers-directories-follow-the-configured-versio.patch
 # http://bugs.ruby-lang.org/issues/7807
-Patch1: ruby-2.1.0-Prevent-duplicated-paths-when-empty-version-string-i.patch
+Patch4: 0005-Prevent-duplicated-paths-when-empty-version-string-i.patch
 # Allows to override libruby.so placement. Hopefully we will be able to return
 # to plain --with-rubyarchprefix.
 # http://bugs.ruby-lang.org/issues/8973
-Patch2: ruby-2.1.0-Enable-configuration-of-archlibdir.patch
+Patch5: 0006-Allow-to-configure-libruby.so-placement.patch
 # Force multiarch directories for i.86 to be always named i386. This solves
 # some differencies in build between Fedora and RHEL.
-Patch3: ruby-2.1.0-always-use-i386.patch
+Patch6: 0007-Always-use-i386.patch
 # Allows to install RubyGems into custom directory, outside of Ruby's tree.
 # http://bugs.ruby-lang.org/issues/5617
-Patch4: ruby-2.1.0-custom-rubygems-location.patch
+Patch7: 0008-Allow-to-install-RubyGems-into-custom-location-outsi.patch
 # Make mkmf verbose by default
-Patch5: ruby-1.9.3-mkmf-verbose.patch
+Patch8: 0009-Verbose-mkmf.patch
 # Adds support for '--with-prelude' configuration option. This allows to built
 # in support for ABRT.
 # http://bugs.ruby-lang.org/issues/8566
-Patch6: ruby-2.1.0-Allow-to-specify-additional-preludes-by-configuratio.patch
+Patch9: 0010-Allow-to-specify-addition-preludes-by-configuration-.patch
 # Use miniruby to regenerate prelude.c.
 # https://bugs.ruby-lang.org/issues/10554
-Patch7: ruby-2.2.3-Generate-preludes-using-miniruby.patch
+Patch10: 0011-Generate-preludes-using-miniruby.patch
 # Workaround "an invalid stdio handle" error on PPC, due to recently introduced
 # hardening features of glibc (rhbz#1361037).
 # https://bugs.ruby-lang.org/issues/12666
-Patch8: ruby-2.3.1-Rely-on-ldd-to-detect-glibc.patch
+Patch11: 0012-Rely-on-ldd-to-detect-glibc.patch
 
 Requires: %{?scl_prefix}%{pkg_name}-libs%{?_isa} = %{version}-%{release}
 Requires: %{?scl_prefix}ruby(rubygems) >= %{rubygems_version}
@@ -512,6 +515,9 @@ rm -rf ext/fiddle/libffi*
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
+%patch10 -p1
+%patch11 -p1
 
 # Provide an example of usage of the tapset:
 cp -a %{SOURCE3} .
@@ -1030,6 +1036,10 @@ make check TESTS="-v $DISABLE_TESTS"
 %{gem_dir}/specifications/xmlrpc-%{xmlrpc_version}.gemspec
 
 %changelog
+* Sun Oct 22 2017 Rishwanth Yeddula <rish@cpanel.net> 2.4.2-5
+- PIG-3585: Refactored patches into a git format-patch patchset
+  to make maintenance easier.
+
 * Thu Sep 28 2017 Rishwanth Yeddula <rish@cpanel.net> 2.4.2-4
 - EA-6847: Update ruby to 2.4.2
 

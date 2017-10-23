@@ -1,14 +1,14 @@
-From 07eb5f5e775dec01a92a8b13910eaced9e8ee0cd Mon Sep 17 00:00:00 2001
+From adfaa0049657d61aad9b75b707676f53ade54012 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Tue, 2 Dec 2014 10:56:58 +0100
-Subject: [PATCH] Generate preludes using miniruby.
+Subject: [PATCH 11/12] Generate preludes using miniruby.
 
 ---
  common.mk | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/common.mk b/common.mk
-index 168dc52..20c218a 100644
+index 275af499e4..c7f68ac01f 100644
 --- a/common.mk
 +++ b/common.mk
 @@ -873,9 +873,9 @@ $(MINIPRELUDE_C): $(COMPILE_PRELUDE)
@@ -24,5 +24,5 @@ index 168dc52..20c218a 100644
  
  {$(VPATH)}golf_prelude.c: $(COMPILE_PRELUDE) {$(srcdir)}golf_prelude.rb
 -- 
-2.6.3
+2.14.2
 
