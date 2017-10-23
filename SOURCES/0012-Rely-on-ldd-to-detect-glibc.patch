@@ -1,7 +1,7 @@
-From c1b2f6f03c4c175ea434b62ecc75d3b7ec9549ad Mon Sep 17 00:00:00 2001
+From 24439d4a582dcca6d6133551a60b81424c7944b4 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Wed, 10 Aug 2016 17:35:48 +0200
-Subject: [PATCH 12/12] Rely on ldd to detect glibc.
+Subject: [PATCH 12/13] Rely on ldd to detect glibc.
 
 This is just workaround, since we know we are quite sure this will be successful
 on Red Hat platforms.

@@ -1,7 +1,7 @@
-From 38b02328f6072b58e7e7b4d3fce2aceed1a35592 Mon Sep 17 00:00:00 2001
+From 70a3a2c1626fee13cb3d6daf9056d92fd0144a4d Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Mon, 19 Nov 2012 15:14:51 +0100
-Subject: [PATCH 09/12] Verbose mkmf.
+Subject: [PATCH 09/13] Verbose mkmf.
 
 ---
  lib/mkmf.rb | 2 +-

@@ -1,7 +1,7 @@
-From adfaa0049657d61aad9b75b707676f53ade54012 Mon Sep 17 00:00:00 2001
+From 43733b022eb1abb913d916383d25f7838e7c90ba Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Tue, 2 Dec 2014 10:56:58 +0100
-Subject: [PATCH 11/12] Generate preludes using miniruby.
+Subject: [PATCH 11/13] Generate preludes using miniruby.
 
 ---
  common.mk | 4 ++--

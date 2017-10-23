@@ -1,7 +1,7 @@
-From 93a296bcea1e47fd980becc152bf7a99cb10f903 Mon Sep 17 00:00:00 2001
+From 7b612181341a457e6bc0a4e9a6820c6aad978f6c Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Fri, 8 Feb 2013 22:48:41 +0100
-Subject: [PATCH 05/12] Prevent duplicated paths when empty version string is
+Subject: [PATCH 05/13] Prevent duplicated paths when empty version string is
  configured.
 
 ---

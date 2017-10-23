@@ -1,7 +1,7 @@
-From d97a93812b59fb755ffe4d7fbde9e9219534d30a Mon Sep 17 00:00:00 2001
+From 41d51d0812cc765de91974d04a7a4b33a494805c Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Tue, 1 Oct 2013 12:22:40 +0200
-Subject: [PATCH 06/12] Allow to configure libruby.so placement.
+Subject: [PATCH 06/13] Allow to configure libruby.so placement.
 
 ---
  configure.in | 5 +++++

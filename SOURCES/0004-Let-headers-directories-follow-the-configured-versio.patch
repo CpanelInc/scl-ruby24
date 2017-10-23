@@ -1,7 +1,7 @@
-From f41690996c24970f1db3d4df9c6dcdde0aa27cf7 Mon Sep 17 00:00:00 2001
+From 11af2ec9b4f0b7f541bc0487cd23eb54f858c793 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Wed, 1 Apr 2015 14:55:37 +0200
-Subject: [PATCH 04/12] Let headers directories follow the configured version
+Subject: [PATCH 04/13] Let headers directories follow the configured version
  name.
 
 ---

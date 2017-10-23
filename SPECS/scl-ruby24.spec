@@ -145,6 +145,8 @@ Patch10: 0011-Generate-preludes-using-miniruby.patch
 # hardening features of glibc (rhbz#1361037).
 # https://bugs.ruby-lang.org/issues/12666
 Patch11: 0012-Rely-on-ldd-to-detect-glibc.patch
+# Skip the multicast tests on systems where multicast is not available
+Patch12: 0013-Skip-multicast-tests-when-multicast-is-not-available.patch
 
 Requires: %{?scl_prefix}%{pkg_name}-libs%{?_isa} = %{version}-%{release}
 Requires: %{?scl_prefix}ruby(rubygems) >= %{rubygems_version}
@@ -518,6 +520,7 @@ rm -rf ext/fiddle/libffi*
 %patch9 -p1
 %patch10 -p1
 %patch11 -p1
+%patch12 -p1
 
 # Provide an example of usage of the tapset:
 cp -a %{SOURCE3} .
@@ -1039,6 +1042,8 @@ make check TESTS="-v $DISABLE_TESTS"
 * Sun Oct 22 2017 Rishwanth Yeddula <rish@cpanel.net> 2.4.2-5
 - PIG-3585: Refactored patches into a git format-patch patchset
   to make maintenance easier.
+- Patch the tests to ensure that multicast tests are skipped
+  on systems where multicast is not available.
 
 * Thu Sep 28 2017 Rishwanth Yeddula <rish@cpanel.net> 2.4.2-4
 - EA-6847: Update ruby to 2.4.2

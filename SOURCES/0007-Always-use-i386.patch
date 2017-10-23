@@ -1,7 +1,7 @@
-From 1e018b31fb6552a7db73c3bb6fd0b63e9f0cecde Mon Sep 17 00:00:00 2001
+From 534ee6374f89e636e3e89e7e813659e4540e4d4c Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Mon, 19 Nov 2012 14:37:28 +0100
-Subject: [PATCH 07/12] Always use i386.
+Subject: [PATCH 07/13] Always use i386.
 
 ---
  configure.in | 2 ++
