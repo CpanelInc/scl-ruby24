@@ -1,0 +1,71 @@
+From 5c76fc27722dc38dafa683e08937b5afe81f4a50 Mon Sep 17 00:00:00 2001
+From: Rishwanth Yeddula <rish@cpanel.net>
+Date: Sun, 22 Oct 2017 19:46:23 -0500
+Subject: [PATCH 13/13] Skip multicast tests when multicast is not available on
+ the system
+
+---
+ test/rinda/test_rinda.rb | 26 +++++++++++++++++++++-----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
+
+diff --git a/test/rinda/test_rinda.rb b/test/rinda/test_rinda.rb
+index aae1a1d7a4..a97f98f326 100644
+--- a/test/rinda/test_rinda.rb
++++ b/test/rinda/test_rinda.rb
+@@ -643,7 +643,11 @@ def test_make_socket_unicast
+   end
+ 
+   def test_make_socket_ipv4_multicast
+-    v4mc = @rs.make_socket('239.0.0.1')
++    begin
++      v4mc = @rs.make_socket('239.0.0.1')
++    rescue Errno::EADDRNOTAVAIL, Errno::ENODEV
++      return # IPv4 address for multicast not available
++    end
+ 
+     begin
+       if Socket.const_defined?(:SO_REUSEPORT) then
+@@ -684,8 +688,12 @@ def test_make_socket_ipv6_multicast
+ 
+   def test_ring_server_ipv4_multicast
+     @rs.shutdown
+-    @rs = Rinda::RingServer.new(@ts, [['239.0.0.1', '0.0.0.0']], @port)
+-    v4mc = @rs.instance_variable_get('@sockets').first
++    begin
++      @rs = Rinda::RingServer.new(@ts, [['239.0.0.1', '0.0.0.0']], @port)
++      v4mc = @rs.instance_variable_get('@sockets').first
++    rescue Errno::EADDRNOTAVAIL, Errno::ENODEV
++      return # IPv4 address for multicast not available
++    end
+ 
+     begin
+       if Socket.const_defined?(:SO_REUSEPORT) then
+@@ -799,7 +807,11 @@ def test_make_socket_unicast
+   end
+ 
+   def test_make_socket_ipv4_multicast
+-    v4mc = @rf.make_socket('239.0.0.1')
++    begin
++      v4mc = @rf.make_socket('239.0.0.1')
++    rescue Errno::EADDRNOTAVAIL, Errno::ENETUNREACH
++      return # IPv4 address for multicast not available
++    end
+ 
+     assert_equal(1, v4mc.getsockopt(:IPPROTO_IP, :IP_MULTICAST_LOOP).ipv4_multicast_loop)
+     assert_equal(1, v4mc.getsockopt(:IPPROTO_IP, :IP_MULTICAST_TTL).ipv4_multicast_ttl)
+@@ -816,7 +828,11 @@ def test_make_socket_ipv6_multicast
+ 
+   def test_make_socket_ipv4_multicast_hops
+     @rf.multicast_hops = 2
+-    v4mc = @rf.make_socket('239.0.0.1')
++    begin
++      v4mc = @rf.make_socket('239.0.0.1')
++    rescue Errno::EADDRNOTAVAIL, Errno::ENETUNREACH
++      return # IPv4 address for multicast not available
++    end
+     assert_equal(2, v4mc.getsockopt(:IPPROTO_IP, :IP_MULTICAST_TTL).ipv4_multicast_ttl)
+   ensure
+     v4mc.close if v4mc
+-- 
+2.14.2
+
