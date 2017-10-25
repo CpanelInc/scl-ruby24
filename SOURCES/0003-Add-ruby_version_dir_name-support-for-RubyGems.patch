@@ -1,0 +1,83 @@
+From 6b417a9b71a82836fcf54d5f8c236e8c8d30774f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
+Date: Tue, 31 Mar 2015 16:37:44 +0200
+Subject: [PATCH 03/13] Add ruby_version_dir_name support for RubyGems.
+
+---
+ lib/rubygems/defaults.rb  | 11 ++++++-----
+ test/rubygems/test_gem.rb |  5 +++--
+ 2 files changed, 9 insertions(+), 7 deletions(-)
+
+diff --git a/lib/rubygems/defaults.rb b/lib/rubygems/defaults.rb
+index 43d57fc808..371d8ded44 100644
+--- a/lib/rubygems/defaults.rb
++++ b/lib/rubygems/defaults.rb
+@@ -32,20 +32,20 @@ def self.default_dir
+              [
+                File.dirname(RbConfig::CONFIG['sitedir']),
+                'Gems',
+-               RbConfig::CONFIG['ruby_version']
++               RbConfig::CONFIG['ruby_version_dir_name'] || RbConfig::CONFIG['ruby_version']
+              ]
+            elsif RbConfig::CONFIG['rubylibprefix'] then
+              [
+               RbConfig::CONFIG['rubylibprefix'],
+               'gems',
+-              RbConfig::CONFIG['ruby_version']
++              RbConfig::CONFIG['ruby_version_dir_name'] || RbConfig::CONFIG['ruby_version']
+              ]
+            else
+              [
+                RbConfig::CONFIG['libdir'],
+                ruby_engine,
+                'gems',
+-               RbConfig::CONFIG['ruby_version']
++               RbConfig::CONFIG['ruby_version_dir_name'] || RbConfig::CONFIG['ruby_version']
+              ]
+            end
+ 
+@@ -75,7 +75,8 @@ def self.default_rubygems_dirs
+ 
+   def self.user_dir
+     parts = [Gem.user_home, '.gem', ruby_engine]
+-    parts << RbConfig::CONFIG['ruby_version'] unless RbConfig::CONFIG['ruby_version'].empty?
++    ruby_version_dir_name = RbConfig::CONFIG['ruby_version_dir_name'] || RbConfig::CONFIG['ruby_version']
++    parts << ruby_version_dir_name unless ruby_version_dir_name.empty?
+     File.join parts
+   end
+ 
+@@ -172,7 +173,7 @@ def self.vendor_dir # :nodoc:
+     return nil unless RbConfig::CONFIG.key? 'vendordir'
+ 
+     File.join RbConfig::CONFIG['vendordir'], 'gems',
+-              RbConfig::CONFIG['ruby_version']
++              RbConfig::CONFIG['ruby_version_dir_name'] || RbConfig::CONFIG['ruby_version']
+   end
+ 
+   ##
+diff --git a/test/rubygems/test_gem.rb b/test/rubygems/test_gem.rb
+index 62b36dfd41..4eeac93265 100644
+--- a/test/rubygems/test_gem.rb
++++ b/test/rubygems/test_gem.rb
+@@ -1124,7 +1124,8 @@ def test_self_use_paths
+ 
+   def test_self_user_dir
+     parts = [@userhome, '.gem', Gem.ruby_engine]
+-    parts << RbConfig::CONFIG['ruby_version'] unless RbConfig::CONFIG['ruby_version'].empty?
++    ruby_version_dir_name = RbConfig::CONFIG['ruby_version_dir_name'] || RbConfig::CONFIG['ruby_version']
++    parts << ruby_version_dir_name unless ruby_version_dir_name.empty?
+ 
+     assert_equal File.join(parts), Gem.user_dir
+   end
+@@ -1251,7 +1252,7 @@ def test_self_user_home_user_drive_and_path
+   def test_self_vendor_dir
+     expected =
+       File.join RbConfig::CONFIG['vendordir'], 'gems',
+-                RbConfig::CONFIG['ruby_version']
++                RbConfig::CONFIG['ruby_version_dir_name'] || RbConfig::CONFIG['ruby_version']
+ 
+     assert_equal expected, Gem.vendor_dir
+   end
+-- 
+2.14.2
+

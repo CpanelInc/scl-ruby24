@@ -1,0 +1,26 @@
+From 11af2ec9b4f0b7f541bc0487cd23eb54f858c793 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
+Date: Wed, 1 Apr 2015 14:55:37 +0200
+Subject: [PATCH 04/13] Let headers directories follow the configured version
+ name.
+
+---
+ configure.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.in b/configure.in
+index 3f92ff7649..9a198d7955 100644
+--- a/configure.in
++++ b/configure.in
+@@ -271,7 +271,7 @@ RUBY_BASE_NAME=`echo ruby | sed "$program_transform_name"`
+ RUBYW_BASE_NAME=`echo rubyw | sed "$program_transform_name"`
+ AC_SUBST(RUBY_BASE_NAME)
+ AC_SUBST(RUBYW_BASE_NAME)
+-AC_SUBST(RUBY_VERSION_NAME, '${RUBY_BASE_NAME}-${ruby_version}')
++AC_SUBST(RUBY_VERSION_NAME, '${RUBY_BASE_NAME}-${ruby_version_dir_name}')
+ 
+ AC_CANONICAL_TARGET
+ test x"$target_alias" = x &&
+-- 
+2.14.2
+

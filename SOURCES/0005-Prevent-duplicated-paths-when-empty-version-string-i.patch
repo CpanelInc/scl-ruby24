@@ -1,7 +1,7 @@
-From e24d97c938c481450ed80ec83e5399595946c1ae Mon Sep 17 00:00:00 2001
+From 7b612181341a457e6bc0a4e9a6820c6aad978f6c Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Fri, 8 Feb 2013 22:48:41 +0100
-Subject: [PATCH] Prevent duplicated paths when empty version string is
+Subject: [PATCH 05/13] Prevent duplicated paths when empty version string is
  configured.
 
 ---
@@ -11,10 +11,10 @@ Subject: [PATCH] Prevent duplicated paths when empty version string is
  3 files changed, 15 insertions(+), 2 deletions(-)
 
 diff --git a/configure.in b/configure.in
-index db37cd6..ce8d149 100644
+index 9a198d7955..6e35b3d8ca 100644
 --- a/configure.in
 +++ b/configure.in
-@@ -4188,7 +4188,8 @@ AS_CASE(["$ruby_version_dir_name"],
+@@ -4417,7 +4417,8 @@ AS_CASE(["$ruby_version_dir_name"],
  ruby_version_dir=/'${ruby_version_dir_name}'
  
  if test -z "${ruby_version_dir_name}"; then
@@ -25,10 +25,10 @@ index db37cd6..ce8d149 100644
  
  rubylibdir='${rubylibprefix}'${ruby_version_dir}
 diff --git a/loadpath.c b/loadpath.c
-index 9160031..0d4d953 100644
+index 9160031971..0d4d953ff2 100644
 --- a/loadpath.c
 +++ b/loadpath.c
-@@ -65,22 +65,34 @@ const char ruby_initial_load_paths[] =
+@@ -65,21 +65,33 @@ const char ruby_initial_load_paths[] =
      RUBY_SEARCH_PATH "\0"
  #endif
  #ifndef NO_RUBY_SITE_LIB
@@ -58,16 +58,15 @@ index 9160031..0d4d953 100644
      RUBY_VENDOR_ARCH_LIB_FOR(RUBY_SITEARCH) "\0"
 +#ifndef RUBY_LIB_VERSION_BLANK
      RUBY_VENDOR_LIB "\0"
- #endif
 +#endif
+ #endif
  
      RUBY_LIB "\0"
- #ifdef RUBY_THINARCH
 diff --git a/tool/mkconfig.rb b/tool/mkconfig.rb
-index 07076d4..35e6c3c 100755
+index 372e0868c7..57f193c536 100755
 --- a/tool/mkconfig.rb
 +++ b/tool/mkconfig.rb
-@@ -122,7 +122,7 @@ def config.write(arg)
+@@ -113,7 +113,7 @@
      val = val.gsub(/\$(?:\$|\{?(\w+)\}?)/) {$1 ? "$(#{$1})" : $&}.dump
      case name
      when /^prefix$/
@@ -77,5 +76,5 @@ index 07076d4..35e6c3c 100755
        val = "arch_flag || #{val}" if universal
      when /^UNIVERSAL_ARCHNAMES$/
 -- 
-1.9.0
+2.14.2
 

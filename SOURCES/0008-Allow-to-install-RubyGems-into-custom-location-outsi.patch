@@ -1,8 +1,8 @@
-From 94da59aafacc6a9efe829529eb51385588d6f149 Mon Sep 17 00:00:00 2001
+From 79528d1937c970107c7906b68d12c1d60cf2ba3b Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Fri, 11 Nov 2011 13:14:45 +0100
-Subject: [PATCH] Allow to install RubyGems into custom location, outside of
- Ruby tree.
+Subject: [PATCH 08/13] Allow to install RubyGems into custom location, outside
+ of Ruby tree.
 
 ---
  configure.in            | 5 +++++
@@ -12,10 +12,10 @@ Subject: [PATCH] Allow to install RubyGems into custom location, outside of
  4 files changed, 21 insertions(+)
 
 diff --git a/configure.in b/configure.in
-index 03a4152..0e371e2 100644
+index 10e3d19d84..534c231190 100644
 --- a/configure.in
 +++ b/configure.in
-@@ -4224,6 +4224,10 @@ AC_ARG_WITH(vendorarchdir,
+@@ -4453,6 +4453,10 @@ AC_ARG_WITH(vendorarchdir,
              [vendorarchdir=$withval],
              [vendorarchdir=${multiarch+'${rubysitearchprefix}/vendor_ruby'${ruby_version_dir}}${multiarch-'${vendorlibdir}/${sitearch}'}])
  
@@ -26,7 +26,7 @@ index 03a4152..0e371e2 100644
  if test "${LOAD_RELATIVE+set}"; then
      AC_DEFINE_UNQUOTED(LOAD_RELATIVE, $LOAD_RELATIVE)
      RUBY_EXEC_PREFIX=''
-@@ -4248,6 +4252,7 @@ AC_SUBST(sitearchdir)dnl
+@@ -4477,6 +4481,7 @@ AC_SUBST(sitearchdir)dnl
  AC_SUBST(vendordir)dnl
  AC_SUBST(vendorlibdir)dnl
  AC_SUBST(vendorarchdir)dnl
@@ -35,7 +35,7 @@ index 03a4152..0e371e2 100644
  AC_SUBST(CONFIGURE, "`echo $0 | sed 's|.*/||'`")dnl
  AC_SUBST(configure_args, "`echo "${ac_configure_args}" | sed 's/\\$/$$/g'`")dnl
 diff --git a/loadpath.c b/loadpath.c
-index 623dc9d..74c5d9e 100644
+index 0d4d953ff2..da0768e814 100644
 --- a/loadpath.c
 +++ b/loadpath.c
 @@ -94,6 +94,10 @@ const char ruby_initial_load_paths[] =
@@ -50,7 +50,7 @@ index 623dc9d..74c5d9e 100644
  #ifdef RUBY_THINARCH
      RUBY_ARCH_LIB_FOR(RUBY_THINARCH) "\0"
 diff --git a/template/verconf.h.tmpl b/template/verconf.h.tmpl
-index 79c003e..34f2382 100644
+index 9325aee0ff..306f440879 100644
 --- a/template/verconf.h.tmpl
 +++ b/template/verconf.h.tmpl
 @@ -36,6 +36,9 @@
@@ -64,10 +64,10 @@ index 79c003e..34f2382 100644
  % R = {}
  % R["ruby_version"] = '"RUBY_LIB_VERSION"'
 diff --git a/tool/rbinstall.rb b/tool/rbinstall.rb
-index b47b6e1..0b99408 100755
+index 94dbc46c32..5bc24db6ee 100755
 --- a/tool/rbinstall.rb
 +++ b/tool/rbinstall.rb
-@@ -328,6 +328,7 @@ def CONFIG.[](name, mandatory = false)
+@@ -330,6 +330,7 @@ def CONFIG.[](name, mandatory = false)
  sitearchlibdir = CONFIG["sitearchdir"]
  vendorlibdir = CONFIG["vendorlibdir"]
  vendorarchlibdir = CONFIG["vendorarchdir"]
@@ -75,7 +75,7 @@ index b47b6e1..0b99408 100755
  mandir = CONFIG["mandir", true]
  docdir = CONFIG["docdir", true]
  configure_args = Shellwords.shellwords(CONFIG["configure_args"])
-@@ -506,7 +507,15 @@ def CONFIG.[](name, mandatory = false)
+@@ -517,7 +518,15 @@ def CONFIG.[](name, mandatory = false)
  install?(:local, :comm, :lib) do
    prepare "library scripts", rubylibdir
    noinst = %w[README* *.txt *.rdoc *.gemspec]
@@ -92,5 +92,5 @@ index b47b6e1..0b99408 100755
  
  install?(:local, :comm, :hdr, :'comm-hdr') do
 -- 
-1.8.3.1
+2.14.2
 
