@@ -14,7 +14,7 @@
 
 %global major_version 2
 %global minor_version 4
-%global teeny_version 2
+%global teeny_version 3
 %global major_minor_version %{major_version}.%{minor_version}
 
 %global ruby_version %{major_minor_version}.%{teeny_version}
@@ -32,7 +32,7 @@
 %global rubygems_dir %{_datadir}/rubygems
 
 # Bundled libraries versions
-%global rubygems_version 2.6.13
+%global rubygems_version 2.6.14
 %global molinillo_version 0.5.7
 
 # TODO: The IRB has strange versioning. Keep the Ruby's versioning ATM.
@@ -68,7 +68,7 @@
 #
 # If any of the rubygems were not updated then the release_prefix *MUST* be bumped, as yum will not be
 # able to properly handle the dependencies otherwise.
-%define release_prefix 5
+%define release_prefix 6
 
 %if 0%{?fedora} >= 19
 %global with_rubypick 1
@@ -1039,6 +1039,9 @@ make check TESTS="-v $DISABLE_TESTS"
 %{gem_dir}/specifications/xmlrpc-%{xmlrpc_version}.gemspec
 
 %changelog
+* Mon Jan 29 2018 Jacob Perkins <jacob.perkins@cpanel.net> - 2.4.3-6
+- EA-7188: Update Ruby to 2.4.3
+
 * Sun Oct 22 2017 Rishwanth Yeddula <rish@cpanel.net> 2.4.2-5
 - PIG-3585: Refactored patches into a git format-patch patchset
   to make maintenance easier.
