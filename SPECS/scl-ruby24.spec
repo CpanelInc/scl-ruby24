@@ -68,7 +68,7 @@
 #
 # If any of the rubygems were not updated then the release_prefix *MUST* be bumped, as yum will not be
 # able to properly handle the dependencies otherwise.
-%define release_prefix 6
+%define release_prefix 7
 
 %if 0%{?fedora} >= 19
 %global with_rubypick 1
@@ -153,6 +153,8 @@ Requires: %{?scl_prefix}ruby(rubygems) >= %{rubygems_version}
 Requires: %{?scl_prefix}rubygem(bigdecimal) >= %{bigdecimal_version}
 Requires: %{?scl_prefix}rubygem(did_you_mean) >= %{did_you_mean_version}
 Requires: %{?scl_prefix}rubygem(openssl) >= %{openssl_version}
+Requires: ea-openssl
+
 %{?scl:Requires: %{scl}-runtime}
 
 %if 0%{rhel} > 6
@@ -162,7 +164,7 @@ BuildRequires: autotools-latest-autoconf
 %endif
 BuildRequires: gdbm-devel
 BuildRequires: libffi-devel
-BuildRequires: openssl-devel
+BuildRequires: ea-openssl ea-openssl-devel
 BuildRequires: libyaml-devel
 BuildRequires: readline-devel
 BuildRequires: scl-utils
@@ -557,6 +559,8 @@ scl enable autotools-latest 'autoconf'
         --with-ruby-version='' \
         --enable-multiarch \
         --with-prelude=./abrt_prelude.rb \
+        --with-openssl-dir=/opt/cpanel/ea-openssl \
+        --with-opt-dir=/opt/cpanel/ea-openssl/include:/opt/cpanel/ea-openssl/lib
 
 # Q= makes the build output more verbose and allows to check Fedora
 # compiler options.
@@ -1039,6 +1043,9 @@ make check TESTS="-v $DISABLE_TESTS"
 %{gem_dir}/specifications/xmlrpc-%{xmlrpc_version}.gemspec
 
 %changelog
+* Tue Mar 06 2018 Daniel Muey <dan@cpanel.net> - %{ruby_version}-7
+- ZC-3402: Update for ea-openssl shared object
+
 * Mon Jan 29 2018 Jacob Perkins <jacob.perkins@cpanel.net> - 2.4.3-6
 - EA-7188: Update Ruby to 2.4.3
 
