@@ -61,6 +61,8 @@
 
 %global _normalized_cpu %(echo %{_target_cpu} | sed 's/^ppc/powerpc/;s/i.86/i386/;s/sparcv./sparc/')
 
+%define ea_openssl_ver 1.0.2o-2
+
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4590 for more details
 #
 # NOTE: If there is a ruby version update, you need to make sure that all of the 'rubygems' included in
@@ -68,7 +70,7 @@
 #
 # If any of the rubygems were not updated then the release_prefix *MUST* be bumped, as yum will not be
 # able to properly handle the dependencies otherwise.
-%define release_prefix 8
+%define release_prefix 9
 
 %if 0%{?fedora} >= 19
 %global with_rubypick 1
@@ -406,12 +408,12 @@ Summary:    OpenSSL provides SSL, TLS and general purpose cryptography
 Version:    %{openssl_version}
 Group:      Development/Libraries
 License:    Ruby or BSD
-Requires:   ea-openssl >= 1.0.2n-3
+Requires:   ea-openssl >= %{ea_openssl_ver}
 Requires:   %{?scl_prefix}ruby(release)
 Requires:   %{?scl_prefix}ruby(rubygems) >= %{rubygems_version}
 Provides:   %{?scl_prefix}rubygem(openssl) = %{version}-%{release}
-BuildRequires: ea-openssl >= 1.0.2n-3
-BuildRequires: ea-openssl-devel >= 1.0.2n-3
+BuildRequires: ea-openssl >= %{ea_openssl_ver}
+BuildRequires: ea-openssl-devel >= %{ea_openssl_ver}
 
 %description -n %{?scl_prefix}rubygem-openssl
 OpenSSL provides SSL, TLS and general purpose cryptography. It wraps the
@@ -1045,6 +1047,9 @@ EOF}
 %{gem_dir}/specifications/xmlrpc-%{xmlrpc_version}.gemspec
 
 %changelog
+* Mon Apr 16 2018 Rishwanth Yeddula <rish@cpanel.net> - 2.4.3-9
+- EA-7382: Update dependency on ea-openssl to require the latest version with versioned symbols.
+
 * Wed Mar 28 2018 Rishwanth Yeddula <rish@cpanel.net> - 2.4.3-8
 - EA-7341: Ensure we build against ea-openssl, and require the
   latest ea-ruby24-runtime pkg.
