@@ -1,7 +1,7 @@
-From 7b612181341a457e6bc0a4e9a6820c6aad978f6c Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Fri, 8 Feb 2013 22:48:41 +0100
-Subject: [PATCH 05/13] Prevent duplicated paths when empty version string is
+Subject: [PATCH 05/14] Prevent duplicated paths when empty version string is
  configured.
 
 ---
@@ -11,10 +11,10 @@ Subject: [PATCH 05/13] Prevent duplicated paths when empty version string is
  3 files changed, 15 insertions(+), 2 deletions(-)
 
 diff --git a/configure.in b/configure.in
-index 9a198d7955..6e35b3d8ca 100644
+index 915d4080e7..206a587ea4 100644
 --- a/configure.in
 +++ b/configure.in
-@@ -4417,7 +4417,8 @@ AS_CASE(["$ruby_version_dir_name"],
+@@ -4425,7 +4425,8 @@ AS_CASE(["$ruby_version_dir_name"],
  ruby_version_dir=/'${ruby_version_dir_name}'
  
  if test -z "${ruby_version_dir_name}"; then
@@ -75,6 +75,3 @@ index 372e0868c7..57f193c536 100755
      when /^ARCH_FLAG$/
        val = "arch_flag || #{val}" if universal
      when /^UNIVERSAL_ARCHNAMES$/
--- 
-2.14.2
-

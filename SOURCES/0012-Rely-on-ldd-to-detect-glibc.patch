@@ -1,14 +1,14 @@
-From 24439d4a582dcca6d6133551a60b81424c7944b4 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Wed, 10 Aug 2016 17:35:48 +0200
-Subject: [PATCH 12/13] Rely on ldd to detect glibc.
+Subject: [PATCH 12/14] Rely on ldd to detect glibc.
 
 This is just workaround, since we know we are quite sure this will be successful
 on Red Hat platforms.
 
 This workaround rhbz#1361037
 ---
- test/fiddle/helper.rb | 92 ---------------------------------------------------
+ test/fiddle/helper.rb | 92 -------------------------------------------
  1 file changed, 92 deletions(-)
 
 diff --git a/test/fiddle/helper.rb b/test/fiddle/helper.rb
@@ -114,6 +114,3 @@ index 1da3d93819..65148a1788 100644
  if !libc_so || !libm_so
    ruby = EnvUtil.rubybin
    ldd = `ldd #{ruby}`
--- 
-2.14.2
-
