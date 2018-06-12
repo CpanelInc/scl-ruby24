@@ -1,7 +1,7 @@
-From 43733b022eb1abb913d916383d25f7838e7c90ba Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Tue, 2 Dec 2014 10:56:58 +0100
-Subject: [PATCH 11/13] Generate preludes using miniruby.
+Subject: [PATCH 11/14] Generate preludes using miniruby.
 
 ---
  common.mk | 4 ++--
@@ -23,6 +23,3 @@ index 275af499e4..c7f68ac01f 100644
  		$(srcdir)/template/prelude.c.tmpl $(PRELUDE_SCRIPTS)
  
  {$(VPATH)}golf_prelude.c: $(COMPILE_PRELUDE) {$(srcdir)}golf_prelude.rb
--- 
-2.14.2
-
