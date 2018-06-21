@@ -1,7 +1,7 @@
-From 6b417a9b71a82836fcf54d5f8c236e8c8d30774f Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Tue, 31 Mar 2015 16:37:44 +0200
-Subject: [PATCH 03/13] Add ruby_version_dir_name support for RubyGems.
+Subject: [PATCH 03/14] Add ruby_version_dir_name support for RubyGems.
 
 ---
  lib/rubygems/defaults.rb  | 11 ++++++-----
@@ -78,6 +78,3 @@ index 62b36dfd41..4eeac93265 100644
  
      assert_equal expected, Gem.vendor_dir
    end
--- 
-2.14.2
-

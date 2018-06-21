@@ -1,7 +1,7 @@
-From 9e90e849b6996adac1d29befc8b72a2e212b17ee Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Tue, 31 Mar 2015 16:21:04 +0200
-Subject: [PATCH 01/13] Use ruby_version_dir_name for versioned directories.
+Subject: [PATCH 01/14] Use ruby_version_dir_name for versioned directories.
 
 This disallows changing the ruby_version constant by --with-ruby-version
 configuration options. The two places version numbers are disallowed as
@@ -12,15 +12,15 @@ ruby_version_dir_name now specifies custom version string for versioned
 directories, e.g. instead of default X.Y.Z, you can specify whatever
 string.
 ---
- configure.in        | 64 ++++++++++++++++++++++++++++-------------------------
+ configure.in        | 64 ++++++++++++++++++++++++---------------------
  template/ruby.pc.in |  1 +
  2 files changed, 35 insertions(+), 30 deletions(-)
 
 diff --git a/configure.in b/configure.in
-index 6d714f3b24..3f92ff7649 100644
+index 00955b60f3..58b9be288a 100644
 --- a/configure.in
 +++ b/configure.in
-@@ -4368,9 +4368,6 @@ AS_CASE(["$target_os"],
+@@ -4376,9 +4376,6 @@ AS_CASE(["$target_os"],
      rubyw_install_name='$(RUBYW_INSTALL_NAME)'
      ])
  
@@ -30,7 +30,7 @@ index 6d714f3b24..3f92ff7649 100644
  rubyarchprefix=${multiarch+'${archlibdir}/${RUBY_BASE_NAME}'}${multiarch-'${rubylibprefix}/${arch}'}
  AC_ARG_WITH(rubyarchprefix,
  	    AS_HELP_STRING([--with-rubyarchprefix=DIR],
-@@ -4393,56 +4390,62 @@ AC_ARG_WITH(ridir,
+@@ -4401,56 +4398,62 @@ AC_ARG_WITH(ridir,
  AC_SUBST(ridir)
  AC_SUBST(RI_BASE_NAME)
  
@@ -120,7 +120,7 @@ index 6d714f3b24..3f92ff7649 100644
  
  if test "${LOAD_RELATIVE+set}"; then
      AC_DEFINE_UNQUOTED(LOAD_RELATIVE, $LOAD_RELATIVE)
-@@ -4459,6 +4462,7 @@ AC_SUBST(sitearchincludedir)dnl
+@@ -4467,6 +4470,7 @@ AC_SUBST(sitearchincludedir)dnl
  AC_SUBST(arch)dnl
  AC_SUBST(sitearch)dnl
  AC_SUBST(ruby_version)dnl
@@ -140,6 +140,3 @@ index 2b68f59776..2d8fff0678 100644
  RUBY_PROGRAM_VERSION=@RUBY_PROGRAM_VERSION@
  RUBY_BASE_NAME=@RUBY_BASE_NAME@
  RUBY_VERSION_NAME=@RUBY_VERSION_NAME@
--- 
-2.14.2
-

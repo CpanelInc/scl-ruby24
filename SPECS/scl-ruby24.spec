@@ -14,7 +14,7 @@
 
 %global major_version 2
 %global minor_version 4
-%global teeny_version 3
+%global teeny_version 4
 %global major_minor_version %{major_version}.%{minor_version}
 
 %global ruby_version %{major_minor_version}.%{teeny_version}
@@ -32,20 +32,20 @@
 %global rubygems_dir %{_datadir}/rubygems
 
 # Bundled libraries versions
-%global rubygems_version 2.6.14
+%global rubygems_version 2.6.14.1
 %global molinillo_version 0.5.7
 
 # TODO: The IRB has strange versioning. Keep the Ruby's versioning ATM.
 # http://redmine.ruby-lang.org/issues/5313
 %global irb_version %{ruby_version}
 
-%global bigdecimal_version 1.3.0
+%global bigdecimal_version 1.3.2
 %global did_you_mean_version 1.1.0
 %global io_console_version 0.4.6
 %global json_version 2.0.4
 %global minitest_version 5.10.1
 %global net_telnet_version 0.1.1
-%global openssl_version 2.0.5
+%global openssl_version 2.0.7
 %global power_assert_version 0.4.1
 %global psych_version 2.2.2
 %global rake_version 12.0.0
@@ -70,7 +70,7 @@
 #
 # If any of the rubygems were not updated then the release_prefix *MUST* be bumped, as yum will not be
 # able to properly handle the dependencies otherwise.
-%define release_prefix 9
+%define release_prefix 10
 
 %if 0%{?fedora} >= 19
 %global with_rubypick 1
@@ -149,6 +149,8 @@ Patch10: 0011-Generate-preludes-using-miniruby.patch
 Patch11: 0012-Rely-on-ldd-to-detect-glibc.patch
 # Skip the multicast tests on systems where multicast is not available
 Patch12: 0013-Skip-multicast-tests-when-multicast-is-not-available.patch
+# The test is too strict and fails on the gcc that ships with centos 6/7
+Patch13: 0014-Lessen-the-strictness-for-the-test_expand_heap-test-.patch
 
 Requires: %{?scl_prefix}%{pkg_name}-libs%{?_isa} = %{version}-%{release}
 Requires: %{?scl_prefix}ruby(rubygems) >= %{rubygems_version}
@@ -526,6 +528,7 @@ rm -rf ext/fiddle/libffi*
 %patch10 -p1
 %patch11 -p1
 %patch12 -p1
+%patch13 -p1
 
 # Provide an example of usage of the tapset:
 cp -a %{SOURCE3} .
@@ -1047,6 +1050,9 @@ EOF}
 %{gem_dir}/specifications/xmlrpc-%{xmlrpc_version}.gemspec
 
 %changelog
+* Tue Jun 12 2018 Rishwanth Yeddula <rish@cpanel.net> - 2.4.4-10
+- EA-7560: Update Ruby to 2.4.4
+
 * Mon Apr 16 2018 Rishwanth Yeddula <rish@cpanel.net> - 2.4.3-9
 - EA-7382: Update dependency on ea-openssl to require the latest version with versioned symbols.
 

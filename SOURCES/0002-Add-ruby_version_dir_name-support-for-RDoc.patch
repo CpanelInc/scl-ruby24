@@ -1,7 +1,7 @@
-From 31f24e1e789f3455ff6c7b29c5dbc1209d38eb41 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Tue, 31 Mar 2015 16:37:26 +0200
-Subject: [PATCH 02/13] Add ruby_version_dir_name support for RDoc.
+Subject: [PATCH 02/14] Add ruby_version_dir_name support for RDoc.
 
 ---
  lib/rdoc/ri/paths.rb | 2 +-
@@ -34,6 +34,3 @@ index c741cfb40b..94dbc46c32 100755
      prepare "rdoc", ridatadir
      install_recursive($rdocdir, ridatadir, :mode => $data_mode)
    end
--- 
-2.14.2
-

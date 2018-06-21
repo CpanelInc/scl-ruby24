@@ -1,7 +1,7 @@
-From 79528d1937c970107c7906b68d12c1d60cf2ba3b Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Fri, 11 Nov 2011 13:14:45 +0100
-Subject: [PATCH 08/13] Allow to install RubyGems into custom location, outside
+Subject: [PATCH 08/14] Allow to install RubyGems into custom location, outside
  of Ruby tree.
 
 ---
@@ -12,10 +12,10 @@ Subject: [PATCH 08/13] Allow to install RubyGems into custom location, outside
  4 files changed, 21 insertions(+)
 
 diff --git a/configure.in b/configure.in
-index 10e3d19d84..534c231190 100644
+index 5380cbdc46..f3ce7f87d0 100644
 --- a/configure.in
 +++ b/configure.in
-@@ -4453,6 +4453,10 @@ AC_ARG_WITH(vendorarchdir,
+@@ -4461,6 +4461,10 @@ AC_ARG_WITH(vendorarchdir,
              [vendorarchdir=$withval],
              [vendorarchdir=${multiarch+'${rubysitearchprefix}/vendor_ruby'${ruby_version_dir}}${multiarch-'${vendorlibdir}/${sitearch}'}])
  
@@ -26,7 +26,7 @@ index 10e3d19d84..534c231190 100644
  if test "${LOAD_RELATIVE+set}"; then
      AC_DEFINE_UNQUOTED(LOAD_RELATIVE, $LOAD_RELATIVE)
      RUBY_EXEC_PREFIX=''
-@@ -4477,6 +4481,7 @@ AC_SUBST(sitearchdir)dnl
+@@ -4485,6 +4489,7 @@ AC_SUBST(sitearchdir)dnl
  AC_SUBST(vendordir)dnl
  AC_SUBST(vendorlibdir)dnl
  AC_SUBST(vendorarchdir)dnl
@@ -91,6 +91,3 @@ index 94dbc46c32..5bc24db6ee 100755
  end
  
  install?(:local, :comm, :hdr, :'comm-hdr') do
--- 
-2.14.2
-
