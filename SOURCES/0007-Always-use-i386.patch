@@ -1,17 +1,17 @@
-From 534ee6374f89e636e3e89e7e813659e4540e4d4c Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Mon, 19 Nov 2012 14:37:28 +0100
-Subject: [PATCH 07/13] Always use i386.
+Subject: [PATCH 07/14] Always use i386.
 
 ---
  configure.in | 2 ++
  1 file changed, 2 insertions(+)
 
 diff --git a/configure.in b/configure.in
-index c05a13c042..10e3d19d84 100644
+index 2f19281ef2..5380cbdc46 100644
 --- a/configure.in
 +++ b/configure.in
-@@ -4481,6 +4481,8 @@ AC_SUBST(vendorarchdir)dnl
+@@ -4489,6 +4489,8 @@ AC_SUBST(vendorarchdir)dnl
  AC_SUBST(CONFIGURE, "`echo $0 | sed 's|.*/||'`")dnl
  AC_SUBST(configure_args, "`echo "${ac_configure_args}" | sed 's/\\$/$$/g'`")dnl
  
@@ -20,6 +20,3 @@ index c05a13c042..10e3d19d84 100644
  if test "${universal_binary-no}" = yes ; then
      arch="universal-${target_os}"
      if test "${rb_cv_architecture_available}" = yes; then
--- 
-2.14.2
-
