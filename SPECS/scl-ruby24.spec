@@ -70,7 +70,7 @@
 #
 # If any of the rubygems were not updated then the release_prefix *MUST* be bumped, as yum will not be
 # able to properly handle the dependencies otherwise.
-%define release_prefix 10
+%define release_prefix 11
 
 %if 0%{?fedora} >= 19
 %global with_rubypick 1
@@ -763,6 +763,10 @@ EOF}
 %{_mandir}/man1/erb*
 %{_mandir}/man1/ruby*
 
+%dir %{_bindir}
+%dir %{_mandir}/man1
+%dir %{_exec_prefix}/share/doc
+
 %files devel
 %doc BSDL
 %doc COPYING
@@ -942,6 +946,7 @@ EOF}
 %dir %{gem_dir}/gems
 %dir %{gem_dir}/specifications
 %dir %{gem_dir}/specifications/default
+%dir %{_exec_prefix}/lib*
 %dir %{_exec_prefix}/lib*/gems
 %dir %{_exec_prefix}/lib*/gems/ruby
 
@@ -1050,6 +1055,9 @@ EOF}
 %{gem_dir}/specifications/xmlrpc-%{xmlrpc_version}.gemspec
 
 %changelog
+* Tue Jul 10 2018 Tim Mullin <tim@cpanel.net> - 2.4.4-11
+- EA-7201: Fix issue with some directories being not "owned".
+
 * Tue Jun 12 2018 Rishwanth Yeddula <rish@cpanel.net> - 2.4.4-10
 - EA-7560: Update Ruby to 2.4.4
 
