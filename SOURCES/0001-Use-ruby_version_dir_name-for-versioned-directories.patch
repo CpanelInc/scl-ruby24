@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Tue, 31 Mar 2015 16:21:04 +0200
-Subject: [PATCH 01/14] Use ruby_version_dir_name for versioned directories.
+Subject: [PATCH 01/13] Use ruby_version_dir_name for versioned directories.
 
 This disallows changing the ruby_version constant by --with-ruby-version
 configuration options. The two places version numbers are disallowed as
@@ -17,7 +17,7 @@ string.
  2 files changed, 35 insertions(+), 30 deletions(-)
 
 diff --git a/configure.in b/configure.in
-index 00955b60f3..58b9be288a 100644
+index 00955b6..58b9be2 100644
 --- a/configure.in
 +++ b/configure.in
 @@ -4376,9 +4376,6 @@ AS_CASE(["$target_os"],
@@ -129,7 +129,7 @@ index 00955b60f3..58b9be288a 100644
  AC_SUBST(rubyarchdir)dnl
  AC_SUBST(sitedir)dnl
 diff --git a/template/ruby.pc.in b/template/ruby.pc.in
-index 2b68f59776..2d8fff0678 100644
+index 2b68f59..2d8fff0 100644
 --- a/template/ruby.pc.in
 +++ b/template/ruby.pc.in
 @@ -9,6 +9,7 @@ MAJOR=@MAJOR@
