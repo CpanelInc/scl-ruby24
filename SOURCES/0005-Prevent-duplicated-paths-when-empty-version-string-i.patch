@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Fri, 8 Feb 2013 22:48:41 +0100
-Subject: [PATCH 05/14] Prevent duplicated paths when empty version string is
+Subject: [PATCH 05/13] Prevent duplicated paths when empty version string is
  configured.
 
 ---
@@ -11,7 +11,7 @@ Subject: [PATCH 05/14] Prevent duplicated paths when empty version string is
  3 files changed, 15 insertions(+), 2 deletions(-)
 
 diff --git a/configure.in b/configure.in
-index 915d4080e7..206a587ea4 100644
+index 915d408..206a587 100644
 --- a/configure.in
 +++ b/configure.in
 @@ -4425,7 +4425,8 @@ AS_CASE(["$ruby_version_dir_name"],
@@ -25,7 +25,7 @@ index 915d4080e7..206a587ea4 100644
  
  rubylibdir='${rubylibprefix}'${ruby_version_dir}
 diff --git a/loadpath.c b/loadpath.c
-index 9160031971..0d4d953ff2 100644
+index f62f858..d08093d 100644
 --- a/loadpath.c
 +++ b/loadpath.c
 @@ -65,21 +65,33 @@ const char ruby_initial_load_paths[] =
@@ -63,7 +63,7 @@ index 9160031971..0d4d953ff2 100644
  
      RUBY_LIB "\0"
 diff --git a/tool/mkconfig.rb b/tool/mkconfig.rb
-index 372e0868c7..57f193c536 100755
+index 372e086..57f193c 100755
 --- a/tool/mkconfig.rb
 +++ b/tool/mkconfig.rb
 @@ -113,7 +113,7 @@

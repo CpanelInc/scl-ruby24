@@ -1,14 +1,14 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Tue, 1 Oct 2013 12:22:40 +0200
-Subject: [PATCH 06/14] Allow to configure libruby.so placement.
+Subject: [PATCH 06/13] Allow to configure libruby.so placement.
 
 ---
  configure.in | 5 +++++
  1 file changed, 5 insertions(+)
 
 diff --git a/configure.in b/configure.in
-index 206a587ea4..2f19281ef2 100644
+index 206a587..2f19281 100644
 --- a/configure.in
 +++ b/configure.in
 @@ -3831,6 +3831,11 @@ if test ${multiarch+set}; then

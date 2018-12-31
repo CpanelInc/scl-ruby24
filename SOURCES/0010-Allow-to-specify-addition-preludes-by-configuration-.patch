@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Fri, 4 Oct 2013 22:13:11 +0200
-Subject: [PATCH 10/14] Allow to specify addition preludes by configuration
+Subject: [PATCH 10/13] Allow to specify addition preludes by configuration
  option.
 
 ---
@@ -11,7 +11,7 @@ Subject: [PATCH 10/14] Allow to specify addition preludes by configuration
  3 files changed, 10 insertions(+), 1 deletion(-)
 
 diff --git a/Makefile.in b/Makefile.in
-index 14413b697a..e33b7d80f6 100644
+index 14413b6..e33b7d8 100644
 --- a/Makefile.in
 +++ b/Makefile.in
 @@ -116,6 +116,8 @@ XRUBY_RUBYLIBDIR = @XRUBY_RUBYLIBDIR@
@@ -24,7 +24,7 @@ index 14413b697a..e33b7d80f6 100644
  
  MAJOR=	@MAJOR@
 diff --git a/common.mk b/common.mk
-index 3f4bcf6c3a..275af499e4 100644
+index 3f4bcf6..275af49 100644
 --- a/common.mk
 +++ b/common.mk
 @@ -144,7 +144,7 @@ ALLOBJS       = $(NORMALMAINOBJ) $(MINIOBJS) $(COMMONOBJS) $(INITOBJS)
@@ -37,7 +37,7 @@ index 3f4bcf6c3a..275af499e4 100644
  PRELUDES      = {$(srcdir)}prelude.c {$(srcdir)}miniprelude.c
  GOLFPRELUDES  = {$(srcdir)}golf_prelude.c
 diff --git a/configure.in b/configure.in
-index f3ce7f87d0..f949883dbe 100644
+index f3ce7f8..f949883 100644
 --- a/configure.in
 +++ b/configure.in
 @@ -4571,6 +4571,13 @@ AC_SUBST(rubyarchhdrdir)dnl
