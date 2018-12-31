@@ -1,17 +1,17 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Mon, 19 Nov 2012 15:14:51 +0100
-Subject: [PATCH 09/14] Verbose mkmf.
+Subject: [PATCH 09/13] Verbose mkmf.
 
 ---
  lib/mkmf.rb | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/lib/mkmf.rb b/lib/mkmf.rb
-index 533f3f85ce..e959d97528 100644
+index 3b218ee..38c208a 100644
 --- a/lib/mkmf.rb
 +++ b/lib/mkmf.rb
-@@ -1897,7 +1897,7 @@ def configuration(srcdir)
+@@ -1898,7 +1898,7 @@ def configuration(srcdir)
  SHELL = /bin/sh
  
  # V=0 quiet, V=1 verbose.  other values don't work.

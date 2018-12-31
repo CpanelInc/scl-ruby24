@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Fri, 11 Nov 2011 13:14:45 +0100
-Subject: [PATCH 08/14] Allow to install RubyGems into custom location, outside
+Subject: [PATCH 08/13] Allow to install RubyGems into custom location, outside
  of Ruby tree.
 
 ---
@@ -12,7 +12,7 @@ Subject: [PATCH 08/14] Allow to install RubyGems into custom location, outside
  4 files changed, 21 insertions(+)
 
 diff --git a/configure.in b/configure.in
-index 5380cbdc46..f3ce7f87d0 100644
+index 5380cbd..f3ce7f8 100644
 --- a/configure.in
 +++ b/configure.in
 @@ -4461,6 +4461,10 @@ AC_ARG_WITH(vendorarchdir,
@@ -35,7 +35,7 @@ index 5380cbdc46..f3ce7f87d0 100644
  AC_SUBST(CONFIGURE, "`echo $0 | sed 's|.*/||'`")dnl
  AC_SUBST(configure_args, "`echo "${ac_configure_args}" | sed 's/\\$/$$/g'`")dnl
 diff --git a/loadpath.c b/loadpath.c
-index 0d4d953ff2..da0768e814 100644
+index d08093d..083bce9 100644
 --- a/loadpath.c
 +++ b/loadpath.c
 @@ -94,6 +94,10 @@ const char ruby_initial_load_paths[] =
@@ -50,7 +50,7 @@ index 0d4d953ff2..da0768e814 100644
  #ifdef RUBY_THINARCH
      RUBY_ARCH_LIB_FOR(RUBY_THINARCH) "\0"
 diff --git a/template/verconf.h.tmpl b/template/verconf.h.tmpl
-index 9325aee0ff..306f440879 100644
+index 9325aee..306f440 100644
 --- a/template/verconf.h.tmpl
 +++ b/template/verconf.h.tmpl
 @@ -36,6 +36,9 @@
@@ -64,7 +64,7 @@ index 9325aee0ff..306f440879 100644
  % R = {}
  % R["ruby_version"] = '"RUBY_LIB_VERSION"'
 diff --git a/tool/rbinstall.rb b/tool/rbinstall.rb
-index 94dbc46c32..5bc24db6ee 100755
+index 94dbc46..5bc24db 100755
 --- a/tool/rbinstall.rb
 +++ b/tool/rbinstall.rb
 @@ -330,6 +330,7 @@ def CONFIG.[](name, mandatory = false)

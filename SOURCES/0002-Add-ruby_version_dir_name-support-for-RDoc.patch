@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Tue, 31 Mar 2015 16:37:26 +0200
-Subject: [PATCH 02/14] Add ruby_version_dir_name support for RDoc.
+Subject: [PATCH 02/13] Add ruby_version_dir_name support for RDoc.
 
 ---
  lib/rdoc/ri/paths.rb | 2 +-
@@ -9,7 +9,7 @@ Subject: [PATCH 02/14] Add ruby_version_dir_name support for RDoc.
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/lib/rdoc/ri/paths.rb b/lib/rdoc/ri/paths.rb
-index 94db2216a2..605d6abb19 100644
+index 94db221..605d6ab 100644
 --- a/lib/rdoc/ri/paths.rb
 +++ b/lib/rdoc/ri/paths.rb
 @@ -10,7 +10,7 @@ module RDoc::RI::Paths
@@ -22,7 +22,7 @@ index 94db2216a2..605d6abb19 100644
    BASE    = if RbConfig::CONFIG.key? 'ridir' then
                File.join RbConfig::CONFIG['ridir'], version
 diff --git a/tool/rbinstall.rb b/tool/rbinstall.rb
-index c741cfb40b..94dbc46c32 100755
+index c741cfb..94dbc46 100755
 --- a/tool/rbinstall.rb
 +++ b/tool/rbinstall.rb
 @@ -417,7 +417,7 @@ def CONFIG.[](name, mandatory = false)
