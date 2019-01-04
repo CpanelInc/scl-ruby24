@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Wed, 10 Aug 2016 17:35:48 +0200
-Subject: [PATCH 12/14] Rely on ldd to detect glibc.
+Subject: [PATCH 12/13] Rely on ldd to detect glibc.
 
 This is just workaround, since we know we are quite sure this will be successful
 on Red Hat platforms.
@@ -12,7 +12,7 @@ This workaround rhbz#1361037
  1 file changed, 92 deletions(-)
 
 diff --git a/test/fiddle/helper.rb b/test/fiddle/helper.rb
-index 1da3d93819..65148a1788 100644
+index 1da3d93..65148a1 100644
 --- a/test/fiddle/helper.rb
 +++ b/test/fiddle/helper.rb
 @@ -6,98 +6,6 @@

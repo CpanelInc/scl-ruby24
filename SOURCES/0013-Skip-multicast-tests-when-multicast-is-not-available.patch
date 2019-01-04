@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Rishwanth Yeddula <rish@cpanel.net>
 Date: Sun, 22 Oct 2017 19:46:23 -0500
-Subject: [PATCH 13/14] Skip multicast tests when multicast is not available on
+Subject: [PATCH 13/13] Skip multicast tests when multicast is not available on
  the system
 
 ---
@@ -9,7 +9,7 @@ Subject: [PATCH 13/14] Skip multicast tests when multicast is not available on
  1 file changed, 21 insertions(+), 5 deletions(-)
 
 diff --git a/test/rinda/test_rinda.rb b/test/rinda/test_rinda.rb
-index aae1a1d7a4..a97f98f326 100644
+index aae1a1d..a97f98f 100644
 --- a/test/rinda/test_rinda.rb
 +++ b/test/rinda/test_rinda.rb
 @@ -643,7 +643,11 @@ def test_make_socket_unicast

@@ -1,14 +1,14 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Tue, 2 Dec 2014 10:56:58 +0100
-Subject: [PATCH 11/14] Generate preludes using miniruby.
+Subject: [PATCH 11/13] Generate preludes using miniruby.
 
 ---
  common.mk | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/common.mk b/common.mk
-index 275af499e4..c7f68ac01f 100644
+index 275af49..c7f68ac 100644
 --- a/common.mk
 +++ b/common.mk
 @@ -873,9 +873,9 @@ $(MINIPRELUDE_C): $(COMPILE_PRELUDE)

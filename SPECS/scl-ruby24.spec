@@ -14,7 +14,7 @@
 
 %global major_version 2
 %global minor_version 4
-%global teeny_version 4
+%global teeny_version 5
 %global major_minor_version %{major_version}.%{minor_version}
 
 %global ruby_version %{major_minor_version}.%{teeny_version}
@@ -45,7 +45,7 @@
 %global json_version 2.0.4
 %global minitest_version 5.10.1
 %global net_telnet_version 0.1.1
-%global openssl_version 2.0.7
+%global openssl_version 2.0.9
 %global power_assert_version 0.4.1
 %global psych_version 2.2.2
 %global rake_version 12.0.0
@@ -70,7 +70,7 @@
 #
 # If any of the rubygems were not updated then the release_prefix *MUST* be bumped, as yum will not be
 # able to properly handle the dependencies otherwise.
-%define release_prefix 11
+%define release_prefix 12
 
 %if 0%{?fedora} >= 19
 %global with_rubypick 1
@@ -149,8 +149,6 @@ Patch10: 0011-Generate-preludes-using-miniruby.patch
 Patch11: 0012-Rely-on-ldd-to-detect-glibc.patch
 # Skip the multicast tests on systems where multicast is not available
 Patch12: 0013-Skip-multicast-tests-when-multicast-is-not-available.patch
-# The test is too strict and fails on the gcc that ships with centos 6/7
-Patch13: 0014-Lessen-the-strictness-for-the-test_expand_heap-test-.patch
 
 Requires: %{?scl_prefix}%{pkg_name}-libs%{?_isa} = %{version}-%{release}
 Requires: %{?scl_prefix}ruby(rubygems) >= %{rubygems_version}
@@ -528,7 +526,6 @@ rm -rf ext/fiddle/libffi*
 %patch10 -p1
 %patch11 -p1
 %patch12 -p1
-%patch13 -p1
 
 # Provide an example of usage of the tapset:
 cp -a %{SOURCE3} .
@@ -1055,6 +1052,9 @@ EOF}
 %{gem_dir}/specifications/xmlrpc-%{xmlrpc_version}.gemspec
 
 %changelog
+* Fri Dec 28 2018 Tim Mullin <tim@cpanel.net> - 2.4.5-12
+- EA-8108: Update Ruby to 2.4.5
+
 * Tue Jul 10 2018 Tim Mullin <tim@cpanel.net> - 2.4.4-11
 - EA-7201: Fix issue with some directories being not "owned".
 
