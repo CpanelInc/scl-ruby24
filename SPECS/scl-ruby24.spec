@@ -70,7 +70,7 @@
 #
 # If any of the rubygems were not updated then the release_prefix *MUST* be bumped, as yum will not be
 # able to properly handle the dependencies otherwise.
-%define release_prefix 12
+%define release_prefix 13
 
 %if 0%{?fedora} >= 19
 %global with_rubypick 1
@@ -149,6 +149,8 @@ Patch10: 0011-Generate-preludes-using-miniruby.patch
 Patch11: 0012-Rely-on-ldd-to-detect-glibc.patch
 # Skip the multicast tests on systems where multicast is not available
 Patch12: 0013-Skip-multicast-tests-when-multicast-is-not-available.patch
+# Makefile to easily regen certs
+Patch13: 0014-EA-8124-Create-a-makefile-to-easily-regen-certs.patch
 
 Requires: %{?scl_prefix}%{pkg_name}-libs%{?_isa} = %{version}-%{release}
 Requires: %{?scl_prefix}ruby(rubygems) >= %{rubygems_version}
@@ -526,6 +528,7 @@ rm -rf ext/fiddle/libffi*
 %patch10 -p1
 %patch11 -p1
 %patch12 -p1
+%patch13 -p1
 
 # Provide an example of usage of the tapset:
 cp -a %{SOURCE3} .
@@ -704,6 +707,12 @@ sed -i 's/^/%lang(ja) /' .ruby-doc.ja
 
 %check
 %if %runselftest
+
+# Probably silly to regen each time, but
+# its less of a maintenance burden.
+pushd ./test/net/fixtures/
+make regen_certs
+popd
 
 # Ruby software collection tests
 %{?scl:scl enable %scl - << \EOF
@@ -1052,6 +1061,10 @@ EOF}
 %{gem_dir}/specifications/xmlrpc-%{xmlrpc_version}.gemspec
 
 %changelog
+* Mon Jan 7 2019 Rishwanth Yeddula <rish@cpanel.net> - 2.4.5-13
+- EA-8124: Ensure that the test certificates are updated prior to test runs
+  to avoid failures due to expired certificates.
+
 * Fri Dec 28 2018 Tim Mullin <tim@cpanel.net> - 2.4.5-12
 - EA-8108: Update Ruby to 2.4.5
 

@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Rishwanth Yeddula <rish@cpanel.net>
 Date: Sun, 22 Oct 2017 19:46:23 -0500
-Subject: [PATCH 13/13] Skip multicast tests when multicast is not available on
+Subject: [PATCH 13/14] Skip multicast tests when multicast is not available on
  the system
 
 ---
