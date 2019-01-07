@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Fri, 8 Feb 2013 22:48:41 +0100
-Subject: [PATCH 05/13] Prevent duplicated paths when empty version string is
+Subject: [PATCH 05/14] Prevent duplicated paths when empty version string is
  configured.
 
 ---
