@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Mon, 19 Nov 2012 15:14:51 +0100
-Subject: [PATCH 09/13] Verbose mkmf.
+Subject: [PATCH 09/14] Verbose mkmf.
 
 ---
  lib/mkmf.rb | 2 +-

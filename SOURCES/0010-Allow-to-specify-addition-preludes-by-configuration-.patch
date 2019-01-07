@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Fri, 4 Oct 2013 22:13:11 +0200
-Subject: [PATCH 10/13] Allow to specify addition preludes by configuration
+Subject: [PATCH 10/14] Allow to specify addition preludes by configuration
  option.
 
 ---
