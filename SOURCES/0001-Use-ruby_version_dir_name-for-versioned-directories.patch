@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Tue, 31 Mar 2015 16:21:04 +0200
-Subject: [PATCH 01/13] Use ruby_version_dir_name for versioned directories.
+Subject: [PATCH 01/14] Use ruby_version_dir_name for versioned directories.
 
 This disallows changing the ruby_version constant by --with-ruby-version
 configuration options. The two places version numbers are disallowed as
