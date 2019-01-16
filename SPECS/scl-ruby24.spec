@@ -70,7 +70,7 @@
 #
 # If any of the rubygems were not updated then the release_prefix *MUST* be bumped, as yum will not be
 # able to properly handle the dependencies otherwise.
-%define release_prefix 13
+%define release_prefix 14
 
 %if 0%{?fedora} >= 19
 %global with_rubypick 1
@@ -151,6 +151,8 @@ Patch11: 0012-Rely-on-ldd-to-detect-glibc.patch
 Patch12: 0013-Skip-multicast-tests-when-multicast-is-not-available.patch
 # Makefile to easily regen certs
 Patch13: 0014-EA-8124-Create-a-makefile-to-easily-regen-certs.patch
+# Improve test_select_leak
+Patch14: 0015-test-ruby-test_io.rb-test_select_leak-speedup-and-re.patch
 
 Requires: %{?scl_prefix}%{pkg_name}-libs%{?_isa} = %{version}-%{release}
 Requires: %{?scl_prefix}ruby(rubygems) >= %{rubygems_version}
@@ -529,6 +531,7 @@ rm -rf ext/fiddle/libffi*
 %patch11 -p1
 %patch12 -p1
 %patch13 -p1
+%patch14 -p1
 
 # Provide an example of usage of the tapset:
 cp -a %{SOURCE3} .
@@ -1061,6 +1064,9 @@ EOF}
 %{gem_dir}/specifications/xmlrpc-%{xmlrpc_version}.gemspec
 
 %changelog
+* Wed Jan 16 2019 Rishwanth Yeddula <rish@cpanel.net> - 2.4.5-14
+- EA-8155: Improve the test_select_leak unit test to be more reliable.
+
 * Mon Jan 7 2019 Rishwanth Yeddula <rish@cpanel.net> - 2.4.5-13
 - EA-8124: Ensure that the test certificates are updated prior to test runs
   to avoid failures due to expired certificates.
