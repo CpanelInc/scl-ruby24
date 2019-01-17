@@ -1,0 +1,67 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Rishwanth Yeddula <rish@cpanel.net>
+Date: Wed, 16 Jan 2019 14:54:07 -0600
+Subject: [PATCH 15/15] test/ruby/test_io.rb (test_select_leak): speedup and
+ reduce memory use
+
+We can reuse the sub-thread and exception with Thread#raise to
+reproduce the old memory leak with less overhead.  This allows
+us to to run more iterations and improve reliability of the
+actual test, particularly on platforms without USE_THREAD_CACHE.
+
+For glibc and jemalloc, also limit arena count to avoid
+inadvertent growth.
+---
+ test/ruby/test_io.rb | 37 +++++++++++++++++++++++++++----------
+ 1 file changed, 27 insertions(+), 10 deletions(-)
+
+diff --git a/test/ruby/test_io.rb b/test/ruby/test_io.rb
+index dc99a8c..3544b73 100644
+--- a/test/ruby/test_io.rb
++++ b/test/ruby/test_io.rb
+@@ -3551,18 +3551,35 @@ def test_write_no_garbage
+   end
+ 
+   def test_select_leak
+-    assert_no_memory_leak([], <<-"end;", <<-"end;", rss: true, timeout: 60)
+-      r, w = IO.pipe
+-      rset = [r]
+-      wset = [w]
+-      Thread.new { IO.select(rset, wset, nil, 0) }.join
++    # avoid malloc arena explosion from glibc and jemalloc:
++    env = {
++      'MALLOC_ARENA_MAX' => '1',
++      'MALLOC_ARENA_TEST' => '1',
++      'MALLOC_CONF' => 'narenas:1',
++    }
++    assert_no_memory_leak([env], <<-"end;", <<-"end;", rss: true, timeout: 60)
++        r, w = IO.pipe
++        rset = [r]
++        wset = [w]
++        exc = StandardError.new(-"select used to leak on exception")
++        exc.set_backtrace([])
++        Thread.new { IO.select(rset, wset, nil, 0) }.join
+     end;
+-      20_000.times do
+-        th = Thread.new { IO.select(rset, wset) }
+-        Thread.pass until th.stop?
+-        th.kill
+-        th.join
++      th = Thread.new do
++        Thread.handle_interrupt(StandardError => :on_blocking) do
++          begin
++            IO.select(rset, wset)
++          rescue
++            retry
++          end while true
++        end
+       end
++      50_000.times do
++        Thread.pass until th.stop?
++        th.raise(exc)
++      end
++      th.kill
++      th.join
+     end;
+   end
+ end
