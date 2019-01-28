@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?V=C3=ADt=20Ondruch?= <vondruch@redhat.com>
 Date: Tue, 1 Oct 2013 12:22:40 +0200
-Subject: [PATCH 06/14] Allow to configure libruby.so placement.
+Subject: [PATCH 06/15] Allow to configure libruby.so placement.
 
 ---
  configure.in | 5 +++++
