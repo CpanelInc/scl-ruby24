@@ -70,7 +70,7 @@
 #
 # If any of the rubygems were not updated then the release_prefix *MUST* be bumped, as yum will not be
 # able to properly handle the dependencies otherwise.
-%define release_prefix 15
+%define release_prefix 1
 
 %if 0%{?fedora} >= 19
 %global with_rubypick 1
@@ -1064,7 +1064,7 @@ EOF}
 %{gem_dir}/specifications/xmlrpc-%{xmlrpc_version}.gemspec
 
 %changelog
-* Tue May 21 2019 Cory McIntire <cory@cpanel.net> - 2.4.6-15
+* Tue May 21 2019 Cory McIntire <cory@cpanel.net> - 2.4.6-1
 - EA-8466: Update Ruby to 2.4.6
 
 * Wed Jan 16 2019 Rishwanth Yeddula <rish@cpanel.net> - 2.4.5-14
