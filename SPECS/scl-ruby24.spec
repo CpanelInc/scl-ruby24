@@ -14,7 +14,7 @@
 
 %global major_version 2
 %global minor_version 4
-%global teeny_version 5
+%global teeny_version 6
 %global major_minor_version %{major_version}.%{minor_version}
 
 %global ruby_version %{major_minor_version}.%{teeny_version}
@@ -70,7 +70,7 @@
 #
 # If any of the rubygems were not updated then the release_prefix *MUST* be bumped, as yum will not be
 # able to properly handle the dependencies otherwise.
-%define release_prefix 14
+%define release_prefix 15
 
 %if 0%{?fedora} >= 19
 %global with_rubypick 1
@@ -1064,6 +1064,9 @@ EOF}
 %{gem_dir}/specifications/xmlrpc-%{xmlrpc_version}.gemspec
 
 %changelog
+* Tue May 21 2019 Cory McIntire <cory@cpanel.net> - 2.4.6-15
+- EA-8466: Update Ruby to 2.4.6
+
 * Wed Jan 16 2019 Rishwanth Yeddula <rish@cpanel.net> - 2.4.5-14
 - EA-8155: Improve the test_select_leak unit test to be more reliable.
 
