@@ -14,7 +14,7 @@
 
 %global major_version 2
 %global minor_version 4
-%global teeny_version 6
+%global teeny_version 7
 %global major_minor_version %{major_version}.%{minor_version}
 
 %global ruby_version %{major_minor_version}.%{teeny_version}
@@ -32,7 +32,7 @@
 %global rubygems_dir %{_datadir}/rubygems
 
 # Bundled libraries versions
-%global rubygems_version 2.6.14.1
+%global rubygems_version 2.6.14.4
 %global molinillo_version 0.5.7
 
 # TODO: The IRB has strange versioning. Keep the Ruby's versioning ATM.
@@ -49,7 +49,7 @@
 %global power_assert_version 0.4.1
 %global psych_version 2.2.2
 %global rake_version 12.0.0
-%global rdoc_version 5.0.0
+%global rdoc_version 5.0.1
 %global test_unit_version 3.2.3
 %global xmlrpc_version 0.2.1
 
@@ -70,7 +70,7 @@
 #
 # If any of the rubygems were not updated then the release_prefix *MUST* be bumped, as yum will not be
 # able to properly handle the dependencies otherwise.
-%define release_prefix 15
+%define release_prefix 16
 
 %if 0%{?fedora} >= 19
 %global with_rubypick 1
@@ -1064,6 +1064,11 @@ EOF}
 %{gem_dir}/specifications/xmlrpc-%{xmlrpc_version}.gemspec
 
 %changelog
+* Wed Sep 18 2019 Tim Mullin <tim@cpanel.net> - 2.4.7-16
+- EA-8663: Update Ruby to 2.4.7
+  CVE-2012-6708
+  CVE-2015-9251
+
 * Tue May 21 2019 Cory McIntire <cory@cpanel.net> - 2.4.6-15
 - EA-8466: Update Ruby to 2.4.6
 
