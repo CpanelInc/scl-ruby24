@@ -15,7 +15,7 @@ diff --git a/test/fiddle/helper.rb b/test/fiddle/helper.rb
 index 1da3d93..65148a1 100644
 --- a/test/fiddle/helper.rb
 +++ b/test/fiddle/helper.rb
-@@ -6,98 +6,6 @@
+@@ -6,98 +6,6 @@ require 'fiddle'
  
  libc_so = libm_so = nil
  
