@@ -12,7 +12,7 @@ diff --git a/test/rinda/test_rinda.rb b/test/rinda/test_rinda.rb
 index aae1a1d..a97f98f 100644
 --- a/test/rinda/test_rinda.rb
 +++ b/test/rinda/test_rinda.rb
-@@ -643,7 +643,11 @@ def test_make_socket_unicast
+@@ -643,7 +643,11 @@ class TestRingServer < Test::Unit::TestCase
    end
  
    def test_make_socket_ipv4_multicast
@@ -25,7 +25,7 @@ index aae1a1d..a97f98f 100644
  
      begin
        if Socket.const_defined?(:SO_REUSEPORT) then
-@@ -684,8 +688,12 @@ def test_make_socket_ipv6_multicast
+@@ -684,8 +688,12 @@ class TestRingServer < Test::Unit::TestCase
  
    def test_ring_server_ipv4_multicast
      @rs.shutdown
@@ -40,7 +40,7 @@ index aae1a1d..a97f98f 100644
  
      begin
        if Socket.const_defined?(:SO_REUSEPORT) then
-@@ -799,7 +807,11 @@ def test_make_socket_unicast
+@@ -799,7 +807,11 @@ class TestRingFinger < Test::Unit::TestCase
    end
  
    def test_make_socket_ipv4_multicast
@@ -53,7 +53,7 @@ index aae1a1d..a97f98f 100644
  
      assert_equal(1, v4mc.getsockopt(:IPPROTO_IP, :IP_MULTICAST_LOOP).ipv4_multicast_loop)
      assert_equal(1, v4mc.getsockopt(:IPPROTO_IP, :IP_MULTICAST_TTL).ipv4_multicast_ttl)
-@@ -816,7 +828,11 @@ def test_make_socket_ipv6_multicast
+@@ -816,7 +828,11 @@ class TestRingFinger < Test::Unit::TestCase
  
    def test_make_socket_ipv4_multicast_hops
      @rf.multicast_hops = 2
