@@ -67,7 +67,7 @@ diff --git a/tool/rbinstall.rb b/tool/rbinstall.rb
 index 94dbc46..5bc24db 100755
 --- a/tool/rbinstall.rb
 +++ b/tool/rbinstall.rb
-@@ -330,6 +330,7 @@ def CONFIG.[](name, mandatory = false)
+@@ -330,6 +330,7 @@ sitelibdir = CONFIG["sitelibdir"]
  sitearchlibdir = CONFIG["sitearchdir"]
  vendorlibdir = CONFIG["vendorlibdir"]
  vendorarchlibdir = CONFIG["vendorarchdir"]
@@ -75,7 +75,7 @@ index 94dbc46..5bc24db 100755
  mandir = CONFIG["mandir", true]
  docdir = CONFIG["docdir", true]
  configure_args = Shellwords.shellwords(CONFIG["configure_args"])
-@@ -517,7 +518,15 @@ def CONFIG.[](name, mandatory = false)
+@@ -517,7 +518,15 @@ end
  install?(:local, :comm, :lib) do
    prepare "library scripts", rubylibdir
    noinst = %w[README* *.txt *.rdoc *.gemspec]

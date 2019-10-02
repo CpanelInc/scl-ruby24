@@ -25,7 +25,7 @@ diff --git a/tool/rbinstall.rb b/tool/rbinstall.rb
 index c741cfb..94dbc46 100755
 --- a/tool/rbinstall.rb
 +++ b/tool/rbinstall.rb
-@@ -417,7 +417,7 @@ def CONFIG.[](name, mandatory = false)
+@@ -417,7 +417,7 @@ end
  
  install?(:doc, :rdoc) do
    if $rdocdir

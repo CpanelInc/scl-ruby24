@@ -12,7 +12,7 @@ diff --git a/lib/rubygems/defaults.rb b/lib/rubygems/defaults.rb
 index 43d57fc..371d8de 100644
 --- a/lib/rubygems/defaults.rb
 +++ b/lib/rubygems/defaults.rb
-@@ -32,20 +32,20 @@ def self.default_dir
+@@ -32,20 +32,20 @@ module Gem
               [
                 File.dirname(RbConfig::CONFIG['sitedir']),
                 'Gems',
@@ -36,7 +36,7 @@ index 43d57fc..371d8de 100644
               ]
             end
  
-@@ -75,7 +75,8 @@ def self.default_rubygems_dirs
+@@ -75,7 +75,8 @@ module Gem
  
    def self.user_dir
      parts = [Gem.user_home, '.gem', ruby_engine]
@@ -46,7 +46,7 @@ index 43d57fc..371d8de 100644
      File.join parts
    end
  
-@@ -172,7 +173,7 @@ def self.vendor_dir # :nodoc:
+@@ -172,7 +173,7 @@ module Gem
      return nil unless RbConfig::CONFIG.key? 'vendordir'
  
      File.join RbConfig::CONFIG['vendordir'], 'gems',
@@ -59,7 +59,7 @@ diff --git a/test/rubygems/test_gem.rb b/test/rubygems/test_gem.rb
 index 62b36df..4eeac93 100644
 --- a/test/rubygems/test_gem.rb
 +++ b/test/rubygems/test_gem.rb
-@@ -1124,7 +1124,8 @@ def test_self_use_paths
+@@ -1124,7 +1124,8 @@ class TestGem < Gem::TestCase
  
    def test_self_user_dir
      parts = [@userhome, '.gem', Gem.ruby_engine]
@@ -69,7 +69,7 @@ index 62b36df..4eeac93 100644
  
      assert_equal File.join(parts), Gem.user_dir
    end
-@@ -1251,7 +1252,7 @@ def test_self_user_home_user_drive_and_path
+@@ -1251,7 +1252,7 @@ class TestGem < Gem::TestCase
    def test_self_vendor_dir
      expected =
        File.join RbConfig::CONFIG['vendordir'], 'gems',
