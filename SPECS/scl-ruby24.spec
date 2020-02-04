@@ -772,7 +772,6 @@ EOF}
 %{_mandir}/man1/erb*
 %{_mandir}/man1/ruby*
 
-%dir %{_bindir}
 %dir %{_mandir}/man1
 %dir %{_exec_prefix}/share/doc
 
@@ -955,7 +954,6 @@ EOF}
 %dir %{gem_dir}/gems
 %dir %{gem_dir}/specifications
 %dir %{gem_dir}/specifications/default
-%dir %{_exec_prefix}/lib*
 %dir %{_exec_prefix}/lib*/gems
 %dir %{_exec_prefix}/lib*/gems/ruby
 
