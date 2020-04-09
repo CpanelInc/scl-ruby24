@@ -14,7 +14,7 @@
 
 %global major_version 2
 %global minor_version 4
-%global teeny_version 9
+%global teeny_version 10
 %global major_minor_version %{major_version}.%{minor_version}
 
 %global ruby_version %{major_minor_version}.%{teeny_version}
@@ -70,7 +70,7 @@
 #
 # If any of the rubygems were not updated then the release_prefix *MUST* be bumped, as yum will not be
 # able to properly handle the dependencies otherwise.
-%define release_prefix 17
+%define release_prefix 18
 
 %if 0%{?fedora} >= 19
 %global with_rubypick 1
@@ -1062,6 +1062,10 @@ EOF}
 %{gem_dir}/specifications/xmlrpc-%{xmlrpc_version}.gemspec
 
 %changelog
+* Wed Apr 08 2020 Tim Mullin <tim@cpanel.net> - 2.4.10-18
+- EA-8972: Update Ruby to 2.4.10
+  CVE-2020-10663
+
 * Wed Oct 02 2019 Tim Mullin <tim@cpanel.net> - 2.4.9-17
 - EA-8682: Update Ruby to 2.4.9
   CVE-2019-16255
