@@ -70,7 +70,7 @@
 #
 # If any of the rubygems were not updated then the release_prefix *MUST* be bumped, as yum will not be
 # able to properly handle the dependencies otherwise.
-%define release_prefix 18
+%define release_prefix 19
 
 %if 0%{?fedora} >= 19
 %global with_rubypick 1
@@ -548,6 +548,12 @@ autoconf
 scl enable autotools-latest 'autoconf'
 %endif
 
+%if 0%{rhel} < 8
+export LDFLAGS="-Wl,-rpath=/opt/cpanel/ea-openssl/lib64 -Wl,-rpath=/opt/cpanel/ea-ruby24/root/usr/lib64"
+%else
+export LDFLAGS="-Wl,-rpath=/opt/cpanel/ea-ruby24/root/usr/lib64"
+%endif
+
 %configure \
         --with-rubylibprefix='%{ruby_libdir}' \
         --with-archlibdir='%{_libdir}' \
@@ -568,7 +574,8 @@ scl enable autotools-latest 'autoconf'
         --with-ruby-version='' \
         --enable-multiarch \
         --with-prelude=./abrt_prelude.rb \
-        --with-opt-dir=/opt/cpanel/ea-openssl
+        --with-opt-dir=/opt/cpanel/ea-openssl \
+        --enable-rpath=/opt/cpanel/ea-openssl/lib64
 
 # Q= makes the build output more verbose and allows to check Fedora
 # compiler options.
@@ -1062,6 +1069,9 @@ EOF}
 %{gem_dir}/specifications/xmlrpc-%{xmlrpc_version}.gemspec
 
 %changelog
+* Wed Dec 16 2020 Daniel Muey <dan@cpanel.net> - 2.4.10-19
+- ZC-8143: Compile ruby 2.4 binary to work when called directly
+
 * Wed Apr 08 2020 Tim Mullin <tim@cpanel.net> - 2.4.10-18
 - EA-8972: Update Ruby to 2.4.10
   CVE-2020-10663
