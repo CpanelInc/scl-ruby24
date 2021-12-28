@@ -70,7 +70,7 @@
 #
 # If any of the rubygems were not updated then the release_prefix *MUST* be bumped, as yum will not be
 # able to properly handle the dependencies otherwise.
-%define release_prefix 19
+%define release_prefix 20
 
 %if 0%{?fedora} >= 19
 %global with_rubypick 1
@@ -1069,6 +1069,9 @@ EOF}
 %{gem_dir}/specifications/xmlrpc-%{xmlrpc_version}.gemspec
 
 %changelog
+* Tue Dec 28 2021 Dan Muey <dan@cpanel.net> - 2.4.10-20
+- ZC-9589: Update DISABLE_BUILD to match OBS
+
 * Wed Dec 16 2020 Daniel Muey <dan@cpanel.net> - 2.4.10-19
 - ZC-8143: Compile ruby 2.4 binary to work when called directly
 
