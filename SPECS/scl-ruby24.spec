@@ -1,3 +1,5 @@
+%define debug_package %{nil}
+
 # Defining the package namespace
 %global ns_name ea
 %global ns_dir /opt/cpanel
@@ -23,7 +25,7 @@
 # Tests require that you build the RPM as a non-root user,
 # and can take a long time to run.
 # You skip them by setting the runselftest global to 0.
-%{!?runselftest: %{expand: %%global runselftest 1}}
+%{!?runselftest: %{expand: %%global runselftest 0}}
 
 %global ruby_archive %{pkg_name}-%{ruby_version}
 
