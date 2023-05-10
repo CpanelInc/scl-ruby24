@@ -1,5 +1,3 @@
-%define debug_package %{nil}
-
 # Defining the package namespace
 %global ns_name ea
 %global ns_dir /opt/cpanel
@@ -72,7 +70,7 @@
 #
 # If any of the rubygems were not updated then the release_prefix *MUST* be bumped, as yum will not be
 # able to properly handle the dependencies otherwise.
-%define release_prefix 20
+%define release_prefix 21
 
 %if 0%{?fedora} >= 19
 %global with_rubypick 1
@@ -1071,6 +1069,9 @@ EOF}
 %{gem_dir}/specifications/xmlrpc-%{xmlrpc_version}.gemspec
 
 %changelog
+* Wed May 10 2023 Brian Mendoza <brian.mendoza@cpanel.net> - 2.4.10-21
+- ZC-10936: Clean up Makefile and remove debug-package-nil
+
 * Tue Dec 28 2021 Dan Muey <dan@cpanel.net> - 2.4.10-20
 - ZC-9589: Update DISABLE_BUILD to match OBS
 
