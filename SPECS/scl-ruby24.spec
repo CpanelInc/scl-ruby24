@@ -1,3 +1,6 @@
+%define debug_package %{nil}
+%define _enable_debug_packages %{nil}
+
 # Defining the package namespace
 %global ns_name ea
 %global ns_dir /opt/cpanel
@@ -70,7 +73,7 @@
 #
 # If any of the rubygems were not updated then the release_prefix *MUST* be bumped, as yum will not be
 # able to properly handle the dependencies otherwise.
-%define release_prefix 21
+%define release_prefix 22
 
 %if 0%{?fedora} >= 19
 %global with_rubypick 1
@@ -1069,6 +1072,9 @@ EOF}
 %{gem_dir}/specifications/xmlrpc-%{xmlrpc_version}.gemspec
 
 %changelog
+* Wed May 17 2023 Brian Mendoza <brian.mendoza@cpanel.net> - 2.4.10-22
+- ZC-10950: Add debug_package nil back w/ second directive (3rd item will be ZC-10951)
+
 * Wed May 10 2023 Brian Mendoza <brian.mendoza@cpanel.net> - 2.4.10-21
 - ZC-10936: Clean up Makefile and remove debug-package-nil
 
