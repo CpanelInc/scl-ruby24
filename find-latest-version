@@ -9,7 +9,6 @@ package ea_ruby::find_latest_version;
 use strict;
 use warnings;
 
-use Cpanel::JSON             ();
 use HTML::TreeBuilder::XPath ();
 
 use FindBin;
@@ -43,7 +42,7 @@ sub _get_required {
     foreach my $node (@nodes) {
         my $href = $node->attr('href');
         if ( $href && index( $href, 'https://cache.ruby-lang.org/pub/ruby/2.4' ) == 0 ) {
-            my $idx = rindex( $href, '/' );
+            my $idx        = rindex( $href, '/' );
             my $gz_tarball = substr( $href, $idx + 1 );
 
             # ruby-2.4.9.tar.gz
