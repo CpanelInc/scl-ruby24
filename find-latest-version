@@ -20,6 +20,7 @@ my $name;
 my $url;
 my $type;
 my $hex;
+my $sha_page_fragment;
 
 ea4_tool::util::find_latest_version( \&_get_required, \&_add_sum ) if !caller();
 
@@ -30,9 +31,9 @@ ea4_tool::util::find_latest_version( \&_get_required, \&_add_sum ) if !caller();
 sub _get_required {
     my ($http) = @_;
 
-    my $res = $http->get("https://www.ruby-lang.org/en/downloads/");
+    my $res = $http->get("https://www.ruby-lang.org/en/downloads/releases/");
     if ( !$res->{success} ) {
-        die "Could not GET ruby info from https://www.ruby-lang.org/en/downloads/\n";
+        die "Could not GET ruby info from https://www.ruby-lang.org/en/downloads/releases/\n";
     }
 
     my $dom      = HTML::TreeBuilder::XPath->new_from_content( $res->{content} );
@@ -41,36 +42,57 @@ sub _get_required {
 
     foreach my $node (@nodes) {
         my $href = $node->attr('href');
-        if ( $href && index( $href, 'https://cache.ruby-lang.org/pub/ruby/2.4' ) == 0 ) {
+        if ( !defined $version && $href && index( $href, 'https://cache.ruby-lang.org/pub/ruby/2.4' ) == 0 ) {
             my $idx        = rindex( $href, '/' );
             my $gz_tarball = substr( $href, $idx + 1 );
 
             # ruby-2.4.9.tar.gz
             if ( $gz_tarball =~ m/^ruby-(2\.4\.\d+)\.tar\.gz$/ ) {
-                $version = $1;
-                $name    = "ruby-${version}.tar.gz";
-                $url     = "https://cache.ruby-lang.org/pub/ruby/2.4/$name";
-                $type    = 'sha256';
-
-                # now lets try and find the checksum
-
-                my $parent = $node->parent();
-
-                if ( ref($parent) ) {
-                    my @children = $parent->content_list();
-                    foreach my $child (@children) {
-                        if ( !ref($child) ) {
-                            if ( $child =~ m/sha256: ([^\s]+)/ ) {
-                                $hex = $1;
-                            }
-                        }
-                    }
-                }
+                $version           = $1;
+                $name              = "ruby-${version}.tar.gz";
+                $url               = "https://cache.ruby-lang.org/pub/ruby/2.4/$name";
+                $type              = 'sha256';
+                $sha_page_fragment = "ruby-${version}-released";
+                $sha_page_fragment =~ s/\./-/g;
+            }
+        }
+        if ( defined $sha_page_fragment && !defined $hex ) {
+            if ( $href && index( $href, $sha_page_fragment ) > 0 ) {
+                $hex = _parse_sha_page( $http, "https://www.ruby-lang.org$href" );
             }
         }
     }
 
     return ( $version, $url, $name );
+}
+
+sub _parse_sha_page {
+    my ( $http, $sha_page_url ) = @_;
+
+    my $res = $http->get($sha_page_url);
+    if ( !$res->{success} ) {
+        die "Could not GET ruby info from $sha_page_url\n";
+    }
+
+    my $dom      = HTML::TreeBuilder::XPath->new_from_content( $res->{content} );
+    my $node_set = $dom->findnodes('//a');
+    my @nodes    = $node_set->get_nodelist();
+
+    foreach my $node (@nodes) {
+        my $href = $node->attr('href');
+        if ( $href && index( $href, $name ) > 0 ) {
+
+            my $grand_parent = $node->parent()->parent();
+            my $code_node    = ( $grand_parent->find_by_tag_name('code') )[0];
+            my $sha_line     = ( $code_node->content_list() )[0];
+
+            if ( $sha_line =~ m/SHA256: ([^\s]+)/ ) {
+                return $1;
+            }
+        }
+    }
+
+    return;
 }
 
 sub _add_sum {
